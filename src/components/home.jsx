@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 import { useContext } from 'react';
 import { ContextApp } from '../context/context';
 
@@ -6,7 +6,7 @@ import { ContextApp } from '../context/context';
 export default function Home() {
     // const [numSuma, setNumSuma] = useState(1);
 
-    const {version, setVersion} = useContext(ContextApp);
+    const {version} = useContext(ContextApp);
 
     // const sumar = () => {
     //     setNumSuma(numSuma + 1);

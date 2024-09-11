@@ -37,6 +37,10 @@ export default function SendEmail() {
         });
     }
 
+    useEffect(()=>{
+
+    },[])
+
 
     // console.log(APP_KEY_EMAIL);
 
