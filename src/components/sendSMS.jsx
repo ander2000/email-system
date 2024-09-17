@@ -42,7 +42,8 @@ export default function SendSMS() {
             }),
         };
 
-
+        //http://localhost:3000/sms/sendsms
+        
         fetch(`https://api-email-system.vercel.app/sms/sendsms`, options)
             .then((data) => { 
                 //console.log(data);
