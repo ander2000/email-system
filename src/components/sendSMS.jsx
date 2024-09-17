@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { ContextApp } from '../context/context'
 import { useForm } from 'react-hook-form';
 
-export default function SendEmail() {
+export default function SendSMS() {
 
     const APP_KEY_EMAIL = process.env.REACT_APP_API_PORTAFOLIO;
 
@@ -12,19 +12,19 @@ export default function SendEmail() {
 
     const { register, handleSubmit } = useForm();
 
-    const startEnvioEmails = (datos) => {
+    const startEnvioSMS = (datos) => {
         console.log(datos);
-        const { nameUser, email, mensaje } = datos;
+        const { telefono, mensaje } = datos;
 
-        if (!nameUser || !email || !mensaje) {
+        if (!telefono || !mensaje) {
             window.alert("Campos incompletos");
             return;
-        }
+        }       
 
-        envioEmails(nameUser, email, mensaje);
+        envioSMS(telefono, mensaje);
     }
 
-    const envioEmails = async (nameUser, email, mensaje) => {
+    const envioSMS = async (telefono, mensaje) => {
 
 
         const options = {
@@ -36,22 +36,21 @@ export default function SendEmail() {
                 "x-access-token": APP_KEY_EMAIL
             },
             body: JSON.stringify({
-                "from": "adlopez716@misena.edu.co",
-                "to": email,
-                "subject": `hello ${nameUser}`,
-                "message": mensaje
+                "body": mensaje,
+                "from": "+12076302367",
+                "to": `+57${telefono}`
             }),
         };
 
 
-        fetch(`https://api-email-system.vercel.app/email/sendEmail`, options)
+        fetch(`https://api-email-system.vercel.app/sms/sendsms`, options)
             .then((data) => { 
                 //console.log(data);
-                window.alert("Correo enviado");
+                window.alert("SMS enviado");
             })
             .catch((err) => { 
                 console.error(err);
-                window.alert("No se pudo enviar el correo");
+                window.alert("No se pudo enviar el SMS");
             });
 
     }
@@ -63,32 +62,20 @@ export default function SendEmail() {
     return (
         <div>
             <h1>
-                sendEmail
+                sendSMS
             </h1>
             <h2>
                 Version system {version}
             </h2>
 
-            <form action="" onSubmit={handleSubmit(startEnvioEmails)}>
-                <label htmlFor="nameUser">Nombre</label>
-                <input type="text" id='nameUser' {...register("nameUser")} />
-
-                <br />
-
-                <label htmlFor="email">Email</label>
-                <input type='email' id="email" {...register("email")} />
-
-                <br />
-
-                <label htmlFor="phone">Numero de teléfono</label>
-                <input type="number" id="phone" {...register("phone")} />
-
-                <br />
-
+            <form action="" onSubmit={handleSubmit(startEnvioSMS)}>
                 <label htmlFor="mensaje">Mensaje</label>
-                <textarea id="mensaje" {...register("mensaje")}></textarea>
+                <input type="text" id='mensaje' {...register("mensaje")} />
 
                 <br />
+
+                <label htmlFor="telefono">Telefono</label>
+                <input type='number' id="telefono" {...register("telefono")} />
 
                 <button type="submit">Enviar</button>
             </form>

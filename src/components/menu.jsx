@@ -6,7 +6,8 @@ export default function Menu() {
         <nav>
             <ul>
                 <li> <Link to={"/"}>Home</Link></li>
-                <li><Link to={"/sendEmail"}>SendEmail</Link></li>
+                <li><Link to={"/sendemail"}>SendEmail</Link></li>
+                <li><Link to={"/sendsms"}>SendSMS</Link></li>
             </ul>
         </nav >
     )
